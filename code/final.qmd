@@ -52,3 +52,20 @@ Part 2:
 We found a (size) difference (n\^2 = Effect size) between sources in average nitrogen load (kg year\^-1) (one-way ANOVA, F(Among Groups DF, Within Groups DF) = Test Statistic, p = .02, $\alpha$ = confidence level).
 
 On average, urban land had less nitrogen load than grasslands (Numeric difference, Confidence Interval), and more than wastewater (Numeric difference, Confidence Interval), etc
+
+
+# Problem 2: Data visualization
+
+# Problem 3: Data analysis
+
+# Problem 4: Affective and explanitory visualizations
+
+## a.
+
+The visualizations are completely different in the way that I have represented my data. My categorical visualization was organized into boxplots with a jitter, while my continuous visualization was mistakenly a line chart, which did not work with my variable. My final visualization from homework 3 was much more abstract, with the jitterplot points being represented by dendrites on a neuron and the error bar being the length of the axon.
+
+Both of the maps that I created for Homework 2 contain several specific aspects that translated over to my final visualization, but overall the representations are very different. For the categorical visualization, I pulled the categorical aspect by changing my continuous sleep time variable into a categorical bin. I used the data type, reaction time vs sleep time, from my continuous visualization.
+
+Although my first two visualizations from homework 2 were interesting in their own rights, they suffered from a lack of data which hampered their usability. My categorical visualization investigated an aspect of my data recording that I wish I could have looked at more, which was reaction time versus self recorded stress level for the data, which showed an interesting pattern of low and high stress having slower reaction time, while middle stress levels had faster reaction times. The continuous visualization showed the same general trend as my final visualization, where low sleep had slow reaction speed with some increases in the high sleep times.
+
+I did not go to workshop during week 9 for various reasons, but I got really good feedback from my peers during workshop in week 10. Honestly, looking back at my final work, it does not make as much sense as I would have liked even if I think I killed the theme of the neurons. I would try and figure a better way to make the points on my visualization correlate with the actually data.

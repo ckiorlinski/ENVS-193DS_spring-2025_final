@@ -23,6 +23,10 @@ library(gt) # table making
 library(readxl) # reading excel files
 library(ggeffects) # getting model predictions
 
+sst <- read.csv("data/SST_update2023.csv")
+
+nest_boxes <- read.csv("data/occdist.csv")
+
 ```
 
 # Problem 1: Research Writing

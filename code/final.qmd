@@ -31,5 +31,24 @@ nest_boxes <- read.csv("data/occdist.csv")
 
 # Problem 1: Research Writing
 
-## a. 
+## a.
 
+In part 1, they used a Pearson's correlation test to how the two variables relate to/are associated with each other; the variables in this case being distance from headwater (km) and annual total nitrogen load (kg year-1). In part 2, they used a one way ANOVA test to compare the means of more than two groups to identify if there is a significant difference based on one independent variable. The independent variable in this case is average nitrogen load and the variance of mean between sources are being compared.
+
+## b.
+
+The effect size is a relevant piece of information that should have been included in summary of part 2 because it demonstrates the practical significance of results alongside the calculated p value. While a significant p-value shows that a difference exists, effect size demonstrates whether that difference is meaningful and impactful in the real world. Although we know there is a significant difference in the mean nitrogen load between all sources, we do not know the strength of the relationship between variables.
+
+Another piece of information that should have been included in part 2 is the confidence intervals. Having the confidence interval provides crucial context to the result that makes it much easier to quanify and understand without looking at the raw data. In this case, we know that there is some sort of difference in the mean nitrogen load between all sources, we do not know the actual difference in units.
+
+## c.
+
+Part 1:
+
+We found a (Relationship Strength) (Pearsons r) relationship between distance from headwater (km) and annual total nitrogen load (kg year^-1) (F(Degrees of Freedom) = test statistic, p = .03, $\alpha$ = confidence level).
+
+Part 2:
+
+We found a (size) difference (n\^2 = Effect size) between sources in average nitrogen load (kg year\^-1) (one-way ANOVA, F(Among Groups DF, Within Groups DF) = Test Statistic, p = .02, $\alpha$ = confidence level).
+
+On average, urban land had less nitrogen load than grasslands (Numeric difference, Confidence Interval), and more than wastewater (Numeric difference, Confidence Interval), etc

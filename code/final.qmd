@@ -185,12 +185,17 @@ model3 <- glm(
 ## f.
 
 ```{r}
-par(mfrow = c(2,2))
-plot(model0)
-plot(model1)
-plot(model2)
-plot(model3)
+# Simulate residuals
+res0 <- simulateResiduals(model0)
+res1 <- simulateResiduals(model1)
+res2 <- simulateResiduals(model2)
+res3 <- simulateResiduals(model3)
 
+# Plot diagnostics
+plot(res0, main = "Model 0 Diagnostics")
+plot(res1, main = "Model 1 Diagnostics")
+plot(res2, main = "Model 2 Diagnostics")
+plot(res3, main = "Model 3 Diagnostics")
 ```
 
 

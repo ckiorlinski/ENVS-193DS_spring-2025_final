@@ -56,6 +56,27 @@ On average, urban land had less nitrogen load than grasslands (Numeric differenc
 
 # Problem 2: Data visualization
 
+## a.
+
+```{r}
+
+sst_clean <- sst |> 
+  mutate(date = ymd(date)) |> 
+  mutate(
+    year  = factor(year(date)),
+    month = factor(month(date, label = TRUE, abbr = TRUE), 
+                   levels = month.abb)
+  ) |> 
+  group_by(year, month) |> 
+  summarise(
+    mean_monthly_sst = round(mean(temp, na.rm = TRUE), 1),
+    .groups = "drop"
+  )
+
+
+```
+
+
 # Problem 3: Data analysis
 
 # Problem 4: Affective and explanitory visualizations

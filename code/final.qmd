@@ -123,6 +123,29 @@ legend.background = element_blank() #no legend
 
 # Problem 3: Data analysis
 
+## a.
+
+The binary code in this table corresponds with the type of bird that the researchers have decided inhabits that specific nest box based on characteristics such as eggs and foliage used for nest creation. Each column, titled with a one or two letter shorthand, represents the types of birds in the study, such as "sp" for swift parrot. A zero represents that this bird was not in this nest box, whilst a one represents that this bird was present at this nest box.
+
+## b.
+
+What sets apart the swift parrot in this study is the fact that they are highly nomadic and do not breed in the same place in successive years. This leaves the nest boxes open for competitors to inhabit, as boxes can be left vaccant if food is not available in the immediate area.
+
+## c. 
+
+The seasons refereed to in the study reference two distinct food producing tree flowering episodes during 2016 and 2016. The sudden influx of food for the swift parrot induces a mass nesting of the birds in the immediate area. The study compares the nesting patterns between the two events.
+
+## d. 
+
+4 models total:
+
+| Model number | SzN | Distance to Forest Edge | Predictor list              |  
+|:------------:|:---:|:-----------------------:|:---------------------------:|  
+| 0            |  0  |            0            | no predictors (null model)  |
+| 1            |  1  |            1            | all predictors (full model) | 
+| 2            |  1  |            0            | Season only                 |   
+| 3            |  0  |            1            | Distance only               |    
+
 # Problem 4: Affective and explanitory visualizations
 
 ## a.

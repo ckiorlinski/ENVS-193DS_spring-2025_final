@@ -73,9 +73,18 @@ sst_clean <- sst |>
     .groups = "drop"
   )
 
+slice_sample(
+  sst_clean, # data frame
+  n = 5 # showing 5 rows
+)
+
+
+str(sst_clean)
+
 
 ```
 
+## b.
 
 # Problem 3: Data analysis
 

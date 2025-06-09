@@ -212,7 +212,7 @@ summary(model1)
 
 The best model as determined by Akaike’s Information Criterion (AIC) included both the distance from forest edge and season (F(2, 226) = 16.60, p < 0.001,, $\alpha$ = .05).
 
-## h.
+## h & i.
 
 ```{r model-predictions}
 model1_predictions <- ggpredict(
@@ -273,6 +273,21 @@ ggplot(data = df_preds,
   )
 ```
 
+## j.
+
+```{r}
+model1_pred_0900 <- ggpredict(
+  model1,
+  terms = c(
+    "edge.distance [0, 900]",  # only at 0m and 900m
+    "season"                   # and for each season
+  )
+)
+
+df_preds_0900 <- as.data.frame(model1_pred_0900)
+
+print(df_preds_0900)
+```
 
 
 # Problem 4: Affective and explanitory visualizations

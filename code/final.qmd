@@ -214,6 +214,53 @@ The best model as determined by Akaike’s Information Criterion (AIC) included 
 
 ## h.
 
+```{r model-predictions}
+model1_predictions <- ggpredict(
+  model1,
+  terms = c("edge.distance [all]", "season")  # x-axis: edge.distance, grouping: season
+)
+
+df_preds <- as.data.frame(model1_predictions)
+
+```
+
+
+```{r}
+#| fig-width: 12
+#| fig-height: 4
+
+# base layer: ggplot
+# using the model predictions
+ggplot(data = df_preds,
+       aes(x = x,
+           y = predicted,
+           color = group,
+           fill = group)) +
+   geom_ribbon(aes(ymin = conf.low, ymax = conf.high),
+              alpha = 0.25,
+              colour = NA) +
+  geom_line(size = 1) +
+  geom_jitter(width = 0.5,
+              height = 0,
+              shape = 21,
+              alpha = 0.6) +
+ 
+  # manually setting colors
+  scale_color_manual(values = c("2016" = "#AA2450",
+                                "2019" = "#00AC5E")) +
+  scale_fill_manual(values  = c("2016" = "#AA2450",
+                                "2019" = "#00AC5E")) +
+  # labelling x- and y-axis
+  labs(x = "Distance from forst edge (m)",
+       y = "Probability of box occupancy") +
+  # taking out the legend
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        axis.line  = element_line())
+```
+
+
+
 # Problem 4: Affective and explanitory visualizations
 
 ## a.

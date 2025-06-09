@@ -198,6 +198,21 @@ plot(res2, main = "Model 2 Diagnostics")
 plot(res3, main = "Model 3 Diagnostics")
 ```
 
+## g. 
+
+```{r}
+AICc(model0,
+     model1,
+     model2,
+     model3) |> 
+  arrange(AICc)
+
+summary(model1)
+```
+
+The best model as determined by Akaike’s Information Criterion (AIC) included both the distance from forest edge and season (F(2, 226) = 16.60, p < 0.001,, $\alpha$ = .05).
+
+## h.
 
 # Problem 4: Affective and explanitory visualizations
 

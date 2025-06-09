@@ -229,6 +229,13 @@ df_preds <- as.data.frame(model1_predictions)
 #| fig-width: 12
 #| fig-height: 4
 
+my_caption <- str_wrap(
+  "Figure 1: Predictions and CI from model of occupancy of nest boxes by Swift Parrots, who are the target species of the restoration effort. 
+Lines show the predicted likelihood of nest box occupancy over distances from the edges of the forest and are differentiated by the date of the recorded mating event. 
+Data from: Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. https://doi.org/10.5061/dryad.83bk3j9sb",
+  width = 80
+)
+
 # base layer: ggplot
 # using the model predictions
 ggplot(data = df_preds,
@@ -251,12 +258,19 @@ ggplot(data = df_preds,
   scale_fill_manual(values  = c("2016" = "#AA2450",
                                 "2019" = "#00AC5E")) +
   # labelling x- and y-axis
-  labs(x = "Distance from forst edge (m)",
-       y = "Probability of box occupancy") +
-  # taking out the legend
+  labs(x = "Distance from forest edge (m)",
+       y = "Probability of box occupancy",
+       title = "Forest Edge Effects on Swift Parrot Nest Occupancy",
+       caption = my_caption
+  ) +
   theme_bw() +
-  theme(panel.grid = element_blank(),
-        axis.line  = element_line())
+  theme(
+    panel.grid       = element_blank(),
+    axis.line        = element_line(),
+    plot.caption     = element_text(hjust = 0.5, size = 9, margin = margin(t = 5, b = 0)),
+    plot.caption.position = "plot",           # ensure the caption lives in the outer margin
+    plot.margin      = unit(c(1, 1, 2, 1), "lines")  # top, right, bottom, left
+  )
 ```
 
 

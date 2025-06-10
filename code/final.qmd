@@ -24,6 +24,7 @@ library(readxl) # reading excel files
 library(ggeffects) # getting model predictions
 library(dplyr)
 library(MuMIn)
+library(DHARMa)
 
 sst <- read.csv("data/SST_update2023.csv")
 
@@ -47,14 +48,13 @@ Another piece of information that should have been included in part 2 is the con
 
 Part 1:
 
-We found a (Relationship Strength) (Pearsons r) relationship between distance from headwater (km) and annual total nitrogen load (kg year^-1) (F(Degrees of Freedom) = test statistic, p = .03, $\alpha$ = confidence level).
+We found a (Relationship Strength) (Pearsons r) relationship between distance from headwater (km) and annual total nitrogen load (kg year\^-1) (F(Degrees of Freedom) = test statistic, p = .03, $\alpha$ = confidence level).
 
 Part 2:
 
 We found a (size) difference (n\^2 = Effect size) between sources in average nitrogen load (kg year\^-1) (one-way ANOVA, F(Among Groups DF, Within Groups DF) = Test Statistic, p = .02, $\alpha$ = confidence level).
 
 On average, urban land had less nitrogen load than grasslands (Numeric difference, Confidence Interval), and more than wastewater (Numeric difference, Confidence Interval), etc
-
 
 # Problem 2: Data visualization
 
@@ -121,7 +121,6 @@ legend.background = element_blank() #no legend
 
 ```
 
-
 # Problem 3: Data analysis
 
 ## a.
@@ -132,20 +131,20 @@ The binary code in this table corresponds with the type of bird that the researc
 
 What sets apart the swift parrot in this study is the fact that they are highly nomadic and do not breed in the same place in successive years. This leaves the nest boxes open for competitors to inhabit, as boxes can be left vaccant if food is not available in the immediate area.
 
-## c. 
+## c.
 
 The seasons refereed to in the study reference two distinct food producing tree flowering episodes during 2016 and 2016. The sudden influx of food for the swift parrot induces a mass nesting of the birds in the immediate area. The study compares the nesting patterns between the two events.
 
-## d. 
+## d.
 
 4 models total:
 
-| Model number | SzN | Distance to Forest Edge | Predictor list              |  
-|:------------:|:---:|:-----------------------:|:---------------------------:|  
-| 0            |  0  |            0            | no predictors (null model)  |
-| 1            |  1  |            1            | all predictors (full model) | 
-| 2            |  1  |            0            | Season only                 |   
-| 3            |  0  |            1            | Distance only               |  
+| Model number | SzN | Distance to Forest Edge |       Predictor list        |
+|:------------:|:---:|:-----------------------:|:---------------------------:|
+|      0       |  0  |            0            | no predictors (null model)  |
+|      1       |  1  |            1            | all predictors (full model) |
+|      2       |  1  |            0            |         Season only         |
+|      3       |  0  |            1            |        Distance only        |
 
 ## e.
 
@@ -198,7 +197,7 @@ plot(res2, main = "Model 2 Diagnostics")
 plot(res3, main = "Model 3 Diagnostics")
 ```
 
-## g. 
+## g.
 
 ```{r}
 AICc(model0,
@@ -210,7 +209,7 @@ AICc(model0,
 summary(model1)
 ```
 
-The best model as determined by Akaike’s Information Criterion (AIC) included both the distance from forest edge and season (F(2, 226) = 16.60, p < 0.001,, $\alpha$ = .05).
+The best model as determined by Akaike’s Information Criterion (AIC) included both the distance from forest edge and season (F(2, 226) = 16.60, p \< 0.001,, $\alpha$ = .05).
 
 ## h & i.
 
@@ -223,7 +222,6 @@ model1_predictions <- ggpredict(
 df_preds <- as.data.frame(model1_predictions)
 
 ```
-
 
 ```{r}
 #| fig-width: 12
@@ -291,8 +289,7 @@ print(df_preds_0900)
 
 ## k.
 
-The predicted probability of occupancy at the forest edge (0 m) and farther away from the forest edge (900 m) was shown to decrease dramatically when comparing the 2016 to the 2019 data on swift parrots. The probability of occupancy at the forest edge decreased from 48.1% in 2016 to 29.8% in 2019, while the probability of occupancy further away from the forest edge decreased from 12.5% in 2016 to 6.1% in 2019. There is a negative relationship between distance from forest edge and the probability of occupancy, meaning the further a nest box is from the forest edge, the less likely it is to be occupied. A possible explanation for this observed relationship could be the Swift Parrots interactions with the Tree Martin, a species which is a subordinate nest competitor with the parrot. The Tree Martin has the opposite relationship with the nest box occupancy, where they are more likely to occupy boxes further from the forest edge. The absence of competition leads to more nesting for both species based on their respective preferences.
-
+The predicted probability of occupancy at the forest edge (0 m) and farther away from the forest edge (900 m) was shown to decrease dramatically when comparing the 2016 to the 2019 data on swift parrots. The probability of occupancy at the forest edge decreased from 48.1% in 2016 to 29.8% in 2019, while the probability of occupancy further away from the forest edge decreased from 12.5% in 2016 to 6.1% in 2019. There is a negative relationship between distance from forest edge and the probability of occupancy, meaning the further a nest box is from the forest edge, the less likely it is to be occupied. A possible explanation for this observed relationship could be the Swift Parrots interactions with the Tree Martin, a species which is a subordinate nest competitor with the parrot. The Tree Martin has the opposite relationship with the nest box occupancy, where they are more likely to occupy boxes further from the forest edge, so each species has greater nesting where there is less of their competition.
 
 # Problem 4: Affective and explanitory visualizations
 

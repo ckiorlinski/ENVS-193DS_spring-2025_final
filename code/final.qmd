@@ -25,10 +25,11 @@ library(ggeffects) # getting model predictions
 library(dplyr)
 library(MuMIn)
 library(DHARMa)
+library(here)
 
-sst <- read.csv("data/SST_update2023.csv")
+sst <- read.csv(here("data", "SST_update2023.csv"))
 
-nest_boxes <- read.csv("data/occdist.csv") |>
+nest_boxes <- read.csv( here("data", "occdist.csv") ) |>
   clean_names() |> 
   mutate(sp = as.numeric(as.character(sp))) |>  
    mutate(season = factor(season))
@@ -286,7 +287,7 @@ ggplot(data = nest_boxes, #uncleaned nest box dataset as underlying data
 model1_pred_0900 <- ggpredict( #making prediction of 0 and 900m from forest edge
   model1, #using best model
   terms = c(
-    "edge.distance [0, 900]",  # only at 0m and 900m
+    "edge_distance [0, 900]",  # only at 0m and 900m
     "season"                   # and for each season
   )
 )

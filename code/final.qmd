@@ -65,26 +65,26 @@ On average, urban land had less nitrogen load than grasslands (Numeric differenc
 
 ```{r}
 
-sst_clean <- sst |> 
-  mutate(date = ymd(date)) |> 
-  mutate(
-    year  = factor(year(date)),
-    month = factor(month(date, label = TRUE, abbr = TRUE), 
+sst_clean <- sst |> #making new dataframe for cleaning
+  mutate(date = ymd(date)) |> #changing date format
+  mutate( 
+    year  = factor(year(date)), #making year a factor
+    month = factor(month(date, label = TRUE, abbr = TRUE), #making month a factor
                    levels = month.abb)
   ) |> 
-  group_by(year, month) |> 
+  group_by(year, month) |> #grouping by year and month
   summarise(
-    mean_monthly_sst = round(mean(temp, na.rm = TRUE), 1),
+    mean_monthly_sst = round(mean(temp, na.rm = TRUE), 1), #rounding mean monthly values
     .groups = "drop"
   )
 
-slice_sample(
+slice_sample( #displaying sample
   sst_clean, # data frame
   n = 5 # showing 5 rows
 )
 
 
-str(sst_clean)
+str(sst_clean) #displaying structure
 
 
 ```
@@ -93,17 +93,19 @@ str(sst_clean)
 
 ```{r}
 
-monthly_sst <- sst_clean |> 
-   filter(as.integer(as.character(year)) %in% 2018:2023)
+monthly_sst <- sst_clean |> #new dataframe from cleaned data
+   filter(as.integer(as.character(year)) %in% 2018:2023) #only 2018-2023
 
-ggplot(monthly_sst, aes(x = month, y = mean_monthly_sst, group = year, color = year)) +
-  geom_point() +
-  geom_line(size = 1) +
+ggplot(monthly_sst, aes(x = month, #ploting monthly means, x axis month
+                        y = mean_monthly_sst, #y axis mean monthly value
+                        group = year, color = year)) + #grouping and coloring by year
+  geom_point() + #adding points
+  geom_line(size = 1) + #adding line
   labs(
-    x = "Month",
-    y = "Mean Monthly Sea Surface Temperature (°C)"
+    x = "Month", #x axis ttitle
+    y = "Mean Monthly Sea Surface Temperature (°C)" #y axis title
   ) +
-  scale_color_manual(
+  scale_color_manual( #setting color scale
         values = c(  "2018" = "#FFD580",  # brighter light orange
   "2019" = "#FFB347",  # soft orange
   "2020" = "#FF9933",  # medium orange
@@ -111,15 +113,15 @@ ggplot(monthly_sst, aes(x = month, y = mean_monthly_sst, group = year, color = y
   "2022" = "#CC6600",  # dark orange
   "2023" = "#993D00"   # very dark burnt orange
   )) +
-  theme_minimal() +
+  theme_minimal() + #theme
   theme(
-panel.background = element_blank(),
+panel.background = element_blank(), #no panel
 panel.grid = element_blank(), #no grid
-    axis.ticks = element_line(color = "black"),
-    axis.line = element_line(color = "black"),
-plot.title = element_text(hjust = 0),
-legend.position = c(0.1, 0.7),
-legend.background = element_blank() #no legend
+    axis.ticks = element_line(color = "black"), #axis ticks black
+    axis.line = element_line(color = "black"), #axis lines black
+plot.title = element_text(hjust = 0), #no title
+legend.position = c(0.1, 0.7), #adjusting legend position
+legend.background = element_blank() #no legend background
 )
 
 ```
@@ -155,14 +157,14 @@ The seasons refereed to in the study reference two distinct food producing tree 
 
 # Model 0: null model
 model0 <- glm(
-  sp ~ 1,
-  data = nest_boxes,
-  family = binomial
+  sp ~ 1, #what is being predicted ~ predictors
+  data = nest_boxes, #dataset 
+  family = binomial #binomal data
 )
 
 # Model 1: all predictors
 model1 <- glm(
-  sp ~ edge.distance + season,
+  sp ~ edge_distance + season,
   data = nest_boxes,
   family = binomial
 )
@@ -176,7 +178,7 @@ model2 <- glm(
 
 # Model 3: edge distance only
 model3 <- glm(
-  sp ~ edge.distance,
+  sp ~ edge_distance,
   data = nest_boxes,
   family = binomial
 )
@@ -187,13 +189,13 @@ model3 <- glm(
 ## f.
 
 ```{r}
-# Simulate residuals
+# Simulate residuals using DHARMa
 res0 <- simulateResiduals(model0)
 res1 <- simulateResiduals(model1)
 res2 <- simulateResiduals(model2)
 res3 <- simulateResiduals(model3)
 
-# Plot diagnostics
+# Plot dmodel iagnostics
 plot(res0, main = "Model 0 Diagnostics")
 plot(res1, main = "Model 1 Diagnostics")
 plot(res2, main = "Model 2 Diagnostics")
@@ -203,13 +205,13 @@ plot(res3, main = "Model 3 Diagnostics")
 ## g.
 
 ```{r}
-AICc(model0,
+AICc(model0, #run AIC test to determine the best model
      model1,
      model2,
      model3) |> 
-  arrange(AICc)
+  arrange(AICc) #arrange AIC values from lowest to highest
 
-summary(model1)
+summary(model1) #calculate summary values of model
 ```
 
 The best model as determined by Akaike’s Information Criterion (AIC) included both the distance from forest edge and season (F(2, 226) = 16.60, p \< 0.001,, $\alpha$ = .05).
@@ -217,13 +219,13 @@ The best model as determined by Akaike’s Information Criterion (AIC) included 
 ## h & i.
 
 ```{r model-predictions}
-model1_predictions <- ggpredict(
+model1_predictions <- ggpredict( #using ggpredict to create model predictions
   model1,
-  terms = c("edge.distance [all]", "season")  # x-axis: edge.distance, grouping: season
+  terms = c("edge_distance [all]", "season")  # x-axis: edge.distance, grouping: season
 )
 
-df_preds <- as.data.frame(model1_predictions) |> 
-   rename(season = group)
+df_preds <- as.data.frame(model1_predictions) |> #creating dataframe
+   rename(season = group) #renaming group column to season
 
 ```
 
@@ -231,48 +233,48 @@ df_preds <- as.data.frame(model1_predictions) |>
 #| fig-width: 12
 #| fig-height: 4
 
-my_caption <- str_wrap(
+my_caption <- str_wrap( #creating wrapped caption
   "Figure 1: Predictions and CI from model of occupancy of nest boxes by Swift Parrots, who are the target species of the restoration effort. 
 Lines show the predicted likelihood of nest box occupancy over distances from the edges of the forest and are differentiated by the date of the recorded mating event. 
 Data from: Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. https://doi.org/10.5061/dryad.83bk3j9sb",
-  width = 80
+  width = 80 #wraps every 80 characters
 )
 
 # base layer: ggplot
 # using the model predictions
-ggplot(data = nest_boxes,
-       aes(x = edge_distance,
-           y = sp,
-           color = season)) +
-  geom_point(size = 2, 
+ggplot(data = nest_boxes, #uncleaned nest box dataset as underlying data
+       aes(x = edge_distance, #x values edge distance
+           y = sp, #y values sp binary
+           color = season)) + #color by season
+  geom_point(size = 2, #creating points
              alpha = .4) +
-   geom_ribbon(data = df_preds,
-               aes(x = x,
-           y = predicted,
-           ymin = conf.low,
-           ymax = conf.high,
-           fill = season),
-              alpha = 0.25,
-              inherit.aes = FALSE) +
-  geom_line(data = df_preds,
-               aes(x = x, y = predicted, color = season, inherit.aes = FALSE)) +
+   geom_ribbon(data = df_preds, #creating CI ribbon using model predict dataframe
+               aes(x = x, #x axis
+           y = predicted, #y axis
+           ymin = conf.low, #low of ribbon is CI low
+           ymax = conf.high, #high of ribbon is CI high
+           fill = season), #fill color based on season
+              alpha = 0.25, #transparancy
+              inherit.aes = FALSE) + #do not inherent previous aes
+  geom_line(data = df_preds, #creating line of model prediction
+               aes(x = x, y = predicted, color = season, inherit.aes = FALSE)) + #x and y axis, colored by season, do not inherit aes
  
-  # manually setting colors
+  # setting colors
   scale_color_manual(values = c("2016" = "#AA2450",
                                 "2019" = "#00AC5E")) +
   scale_fill_manual(values  = c("2016" = "#AA2450",
                                 "2019" = "#00AC5E")) +
-  # labelling x- and y-axis
-  labs(x = "Distance from forest edge (m)",
-       y = "Probability of box occupancy",
-       title = "Forest Edge Effects on Swift Parrot Nest Occupancy",
-       caption = my_caption
+  # labeling x and y axis
+  labs(x = "Distance from forest edge (m)", #x axis
+       y = "Probability of box occupancy", #y axis
+       title = "Forest Edge Effects on Swift Parrot Nest Occupancy", #title
+       caption = my_caption #set caption to item generated previously
   ) +
-  theme_bw() +
+  theme_bw() + #bw theme goat
   theme(
-    panel.grid       = element_blank(),
-    axis.line        = element_line(),
-    plot.caption     = element_text(hjust = 0.5, size = 9, margin = margin(t = 5, b = 0)),
+    panel.grid       = element_blank(), #no panel grid
+    axis.line        = element_line(), #no axis line
+    plot.caption     = element_text(hjust = 0.5, size = 9, margin = margin(t = 5, b = 0)), #caption settings
     plot.caption.position = "plot",           # ensure the caption lives in the outer margin
     plot.margin      = unit(c(1, 1, 2, 1), "lines")  # top, right, bottom, left
   )
@@ -281,17 +283,17 @@ ggplot(data = nest_boxes,
 ## j.
 
 ```{r}
-model1_pred_0900 <- ggpredict(
-  model1,
+model1_pred_0900 <- ggpredict( #making prediction of 0 and 900m from forest edge
+  model1, #using best model
   terms = c(
     "edge.distance [0, 900]",  # only at 0m and 900m
     "season"                   # and for each season
   )
 )
 
-df_preds_0900 <- as.data.frame(model1_pred_0900)
+df_preds_0900 <- as.data.frame(model1_pred_0900) #creating dataframe
 
-print(df_preds_0900)
+print(df_preds_0900) #displaying
 ```
 
 ## k.
